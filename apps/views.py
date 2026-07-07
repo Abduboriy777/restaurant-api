@@ -127,6 +127,20 @@ class OrderRetrieveUpdateDestroyApiView(RetrieveUpdateDestroyAPIView):
 # ==============================================================================
 
 @extend_schema(tags=['order-items'])
+class OrderItemListCreateApiView(ListCreateAPIView):
+    serializer_class = OrderItemListSerializer
+    permission_classes = [IsAuthenticated, IsAdminUser]
+
+    def get_queryset(self):
+        if self.request.user.is_staff:
+            return OrderItem.objects.all()
+        return OrderItem.objects.filter(order__customer=self.request.user)
+
+    def perform_create(self, serializer):
+        serializer.save()
+
+
+@extend_schema(tags=['order-items'])
 class OrderItemRetrieveUpdateDestroyApiView(RetrieveUpdateDestroyAPIView):
     serializer_class = OrderItemListSerializer
     permission_classes = [IsAuthenticated]

@@ -5,7 +5,7 @@ from .views import (
     CategoryListCreateApiView, CategoryRetrieveUpdateDestroyApiView,
     MenuItemListCreateApiView, MenuItemRetrieveUpdateDestroyApiView,
     OrderListCreateApiView, OrderRetrieveUpdateDestroyApiView,
-    OrderItemRetrieveUpdateDestroyApiView
+    OrderItemRetrieveUpdateDestroyApiView, OrderItemListCreateApiView
 )
 
 urlpatterns = [
@@ -27,5 +27,6 @@ urlpatterns = [
     path('orders/<int:pk>/', OrderRetrieveUpdateDestroyApiView.as_view(), name='order_detail'),
 
     #Buyurtma elementlari
+    path('order-itemss/', OrderItemListCreateApiView.as_view(), name='order_item_post'),
     path('order-items/<int:pk>/', OrderItemRetrieveUpdateDestroyApiView.as_view(), name='order_item_detail'),
 ]
